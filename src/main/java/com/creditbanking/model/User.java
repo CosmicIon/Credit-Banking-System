@@ -1,6 +1,7 @@
 package com.creditbanking.model;
 
 import java.io.Serializable;
+import java.util.Scanner;
 
 public class User implements Serializable {
     private int id;
@@ -13,29 +14,32 @@ public class User implements Serializable {
     private String address;
     private boolean isActive;
 
+    // Constructor to create a User from user input
     public User() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        this.username = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        this.password = scanner.nextLine();
+
+        System.out.print("Enter role (ADMIN/CUSTOMER): ");
+        this.role = scanner.nextLine();
+
+        System.out.print("Enter full name: ");
+        this.fullName = scanner.nextLine();
+
+        System.out.print("Enter email: ");
+        this.email = scanner.nextLine();
+
+        System.out.print("Enter phone number: ");
+        this.phoneNumber = scanner.nextLine();
+
+        System.out.print("Enter address: ");
+        this.address = scanner.nextLine();
+
         this.isActive = true; // default to active
-    }
-
-    // Constructor for new users without ID
-    public User(String username, String password, String role, String fullName, String email,
-                String phoneNumber, String address) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.fullName = fullName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.isActive = true;
-    }
-
-    // Constructor with ID (e.g., from database)
-    public User(int id, String username, String password, String role, String fullName, String email,
-                String phoneNumber, String address, boolean isActive) {
-        this(username, password, role, fullName, email, phoneNumber, address);
-        this.id = id;
-        this.isActive = isActive;
     }
 
     // Getters and Setters
@@ -124,5 +128,15 @@ public class User implements Serializable {
                ", address='" + address + '\'' +
                ", isActive=" + isActive +
                '}';
+    }
+
+    // Main method to test user input
+    public static void main(String[] args) {
+        // Creating a new User object which will prompt for input
+        User newUser = new User();  // This will prompt the user for input
+
+        // Printing the details of the User object
+        System.out.println("\nUser created: ");
+        System.out.println(newUser);  // This will print the details of the user
     }
 }
