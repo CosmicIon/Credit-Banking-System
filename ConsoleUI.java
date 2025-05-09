@@ -3,7 +3,7 @@ import java.util.*;
 public class ConsoleUI {
     private static Scanner scanner = new Scanner(System.in);
     private static BankSystem bank = new BankSystem();
-    private static Admin admin = new Admin("Admin", "admin@bank.com", "admin123");
+    private static Admin admin = new Admin("Harsh", "harsh@bank.com", "harsh123");
 
     public static void start() {
         while (true) {
