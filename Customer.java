@@ -52,4 +52,9 @@ public class Customer extends User {
     public boolean isCreditApproved() {
         return creditApproved;
     }
+
+    @Override
+    public String toString() {
+        return "Customer: " + getUsername() + ", Balance: Rs." + balance + ", Penalty: Rs." + penalty + ", Credit Approved: " + creditApproved;
+    }
 } 

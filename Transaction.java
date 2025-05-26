@@ -15,6 +15,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "[" + date + "] " + type + ": ₹" + amount + " (" + description + ")";
+        return "[" + date + "] " + type + ": Rs." + amount + " (" + description + ")";
     }
 }

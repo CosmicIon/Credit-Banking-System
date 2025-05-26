@@ -46,7 +46,7 @@ public class ConsoleUI {
                     }
                     break;
                 case 3:
-                    System.out.println("Goodbye!");
+                    System.out.println("System Closed");
                     return;
                 default:
                     System.out.println("Invalid choice.");
