@@ -1,9 +1,5 @@
 package model;
-import model.BankSystem;
-import model.CreditRequest;
-import model.Customer;
-import model.Transaction;
-import model.User;
+
 // Admin.java
 public class Admin extends User {
     public Admin(String username, String password) {
