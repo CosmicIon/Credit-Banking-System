@@ -1,117 +1,188 @@
+// ConsoleUI.java
 import java.util.*;
 
 public class ConsoleUI {
-    private static Scanner scanner = new Scanner(System.in);
-    private static BankSystem bank = new BankSystem();
-    private static Admin admin = new Admin("Harsh", "harsh@bank.com", "harsh123");
+    private Scanner scanner;
+    private BankSystem bankSystem;
+    private Admin admin;
 
-    public static void start() {
-        while (true) {
-            System.out.println("\n1. Login as Customer\n2. Login as Admin\n3. Exit");
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            switch (choice) {
-                case 1 -> customerLogin();
-                case 2 -> adminLogin();
-                case 3 -> System.exit(0);
-                default -> System.out.println("Invalid choice");
-            }
-        }
+    public ConsoleUI(BankSystem bankSystem, Admin admin) {
+        this.bankSystem = bankSystem;
+        this.admin = admin;
+        this.scanner = new Scanner(System.in);
     }
 
-    private static void customerLogin() {
-        System.out.print("Enter email: ");
-        String email = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        Customer customer = bank.findCustomer(email, password);
-        if (customer != null) {
-            System.out.println("Welcome, " + customer.getName());
-            customerMenu(customer);
-        } else {
-            System.out.println("Invalid credentials");
-        }
-    }
-
-    private static void customerMenu(Customer customer) {
+    public void start() {
         while (true) {
-            System.out.println("\n1. Request Credit\n2. View Credit Status\n3. Logout");
-            int choice = Integer.parseInt(scanner.nextLine());
+            System.out.println("\nMain Menu:");
+            System.out.println("1. Login as Admin");
+            System.out.println("2. Login as Customer");
+            System.out.println("3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
-                case 1 -> {
-                    System.out.print("Enter credit amount: ");
-                    double amount = Double.parseDouble(scanner.nextLine());
-                    if (amount <= 0) {
-                        System.out.println("Invalid credit amount.");
-                        break;
+                case 1:
+                    System.out.print("Enter Admin username: ");
+                    String aUser = scanner.nextLine();
+                    System.out.print("Enter Admin password: ");
+                    String aPass = scanner.nextLine();
+                    if (admin.getUsername().equals(aUser) && admin.authenticate(aPass)) {
+                        adminMenu(admin);
+                    } else {
+                        System.out.println("Invalid admin credentials.");
                     }
-                    CreditRequest request = customer.requestCredit(amount);
-                    bank.addCreditRequest(request);
-                    System.out.println("Credit request submitted.");
-                }
-                case 2 -> System.out.println("Credit Approved: " + customer.isCreditApproved());
-                case 3 -> { return; }
-                default -> System.out.println("Invalid choice");
+                    break;
+                case 2:
+                    System.out.print("Enter Customer username: ");
+                    String cUser = scanner.nextLine();
+                    System.out.print("Enter Customer password: ");
+                    String cPass = scanner.nextLine();
+                    Customer cust = bankSystem.getCustomerByUsername(cUser);
+                    if (cust != null && cust.authenticate(cPass)) {
+                        customerMenu(cust);
+                    } else {
+                        System.out.println("Invalid customer credentials.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice.");
             }
         }
     }
 
-    private static void adminLogin() {
-        System.out.print("Enter admin email: ");
-        String email = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {
-            System.out.println("Welcome Admin");
-            adminMenu();
-        } else {
-            System.out.println("Invalid admin credentials");
-        }
-    }
-
-    private static void adminMenu() {
+    public void adminMenu(Admin admin) {
         while (true) {
-            System.out.println("\n1. Register Customer\n2. View Credit Requests\n3. Approve Request\n4. View All Customers\n5. Logout");
-            int choice = Integer.parseInt(scanner.nextLine());
+            System.out.println("\nAdmin Menu:");
+            System.out.println("1. Register Customer");
+            System.out.println("2. View Credit Requests");
+            System.out.println("3. Approve Credit Request");
+            System.out.println("4. View All Customers");
+            System.out.println("5. Impose Penalty");
+            System.out.println("6. View Customer Transactions");
+            System.out.println("7. Logout");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
-                case 1 -> registerCustomer();
-                case 2 -> admin.viewCreditRequests(bank);
-                case 3 -> {
-                    System.out.print("Enter customer email to approve: ");
-                    String email = scanner.nextLine();
-                    for (CreditRequest request : bank.getCreditRequests()) {
-                        if (request.getCustomer().getEmail().equalsIgnoreCase(email)) {
-                            admin.approveCreditRequest(request);
-                            System.out.println("Approved!");
+                case 1:
+                    System.out.print("Enter customer username: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter customer password: ");
+                    String password = scanner.nextLine();
+                    Customer newCustomer = new Customer(name, password);
+                    bankSystem.addCustomer(newCustomer);
+                    System.out.println("Customer registered successfully.");
+                    break;
+                case 2:
+                    admin.viewCreditRequests(bankSystem);
+                    break;
+                case 3:
+                    System.out.print("Enter customer username to approve request: ");
+                    String requestUser = scanner.nextLine();
+                    for (CreditRequest cr : bankSystem.getCreditRequests()) {
+                        if (cr.getCustomerUsername().equalsIgnoreCase(requestUser)) {
+                            admin.approveCreditRequest(cr);
+                            Customer approvedCust = bankSystem.getCustomerByUsername(requestUser);
+                            if (approvedCust != null) approvedCust.setCreditApproved(true);
+                            System.out.println("Credit request approved.");
                             break;
                         }
                     }
-                }
-                case 4 -> {
-                    for (Customer c : bank.getCustomers()) {
+                    break;
+                case 4:
+                    for (Customer c : bankSystem.getCustomers()) {
                         System.out.println(c);
                     }
-                }
-                case 5 -> { return; }
-                default -> System.out.println("Invalid choice");
+                    break;
+                case 5:
+                    System.out.print("Enter customer username: ");
+                    String custUser = scanner.nextLine();
+                    Customer customer = bankSystem.getCustomerByUsername(custUser);
+                    if (customer != null) {
+                        System.out.print("Enter penalty amount: ");
+                        double amt = scanner.nextDouble();
+                        scanner.nextLine();
+                        admin.imposePenalty(customer, amt);
+                        System.out.println("Penalty imposed.");
+                    } else {
+                        System.out.println("Customer not found.");
+                    }
+                    break;
+                case 6:
+                    System.out.print("Enter customer username: ");
+                    String transUser = scanner.nextLine();
+                    Customer transCustomer = bankSystem.getCustomerByUsername(transUser);
+                    if (transCustomer != null) {
+                        admin.viewCustomerTransactions(transCustomer);
+                    } else {
+                        System.out.println("Customer not found.");
+                    }
+                    break;
+                case 7:
+                    return;
+                default:
+                    System.out.println("Invalid choice.");
             }
         }
     }
 
-    private static void registerCustomer() {
-        System.out.print("Enter customer name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter customer email: ");
-        String email = scanner.nextLine();
-        System.out.print("Enter customer password: ");
-        String password = scanner.nextLine();
+    public void customerMenu(Customer customer) {
+        while (true) {
+            System.out.println("\nCustomer Menu:");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Request Credit");
+            System.out.println("4. View Credit Status");
+            System.out.println("5. View Transactions");
+            System.out.println("6. Logout");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        Customer customer = new Customer(name, email, password);
-        bank.addCustomer(customer);
-        System.out.println("Customer registered successfully by Admin!");
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter deposit amount: ");
+                    double dep = scanner.nextDouble();
+                    scanner.nextLine();
+                    customer.deposit(dep);
+                    break;
+                case 2:
+                    System.out.print("Enter withdrawal amount: ");
+                    double wdr = scanner.nextDouble();
+                    scanner.nextLine();
+                    customer.withdraw(wdr);
+                    break;
+                case 3:
+                    System.out.print("Enter credit amount: ");
+                    double amount = scanner.nextDouble();
+                    scanner.nextLine();
+                    if (amount <= 0.0) {
+                        System.out.println("Invalid credit amount.");
+                        break;
+                    }
+                    System.out.print("Enter reason: ");
+                    String reason = scanner.nextLine();
+                    CreditRequest request = new CreditRequest(customer.getUsername(), amount, reason);
+                    bankSystem.addCreditRequest(request);
+                    customer.getTransactions().add("Credit requested: " + amount);
+                    System.out.println("Credit request submitted.");
+                    break;
+                case 4:
+                    System.out.println("Credit Approved: " + customer.isCreditApproved());
+                    break;
+                case 5:
+                    for (String t : customer.getTransactions()) {
+                        System.out.println(t);
+                    }
+                    break;
+                case 6:
+                    return;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
     }
 }

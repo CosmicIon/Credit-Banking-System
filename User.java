@@ -1,15 +1,18 @@
-public class User {
-    protected String name;
-    protected String email;
-    protected String password;
+// User.java
+public abstract class User {
+    private String username;
+    private String password;
 
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
-    public String getName() { return name; }
+    public String getUsername() {
+        return username;
+    }
+
+    public boolean authenticate(String inputPassword) {
+        return this.password.equals(inputPassword);
+    }
 }

@@ -1,24 +1,38 @@
+// CreditRequest.java
 public class CreditRequest {
-    private Customer customer;
+    private String customerUsername;
     private double amount;
     private boolean approved;
+    private String reason;
 
-    public CreditRequest(Customer customer, double amount) {
-        this.customer = customer;
+    public CreditRequest(String customerUsername, double amount, String reason) {
+        this.customerUsername = customerUsername;
         this.amount = amount;
+        this.reason = reason;
         this.approved = false;
     }
 
-    public Customer getCustomer() { return customer; }
-    public double getAmount() { return amount; }
-    public boolean isApproved() { return approved; }
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-        customer.setCreditApproved(approved);
+    public String getCustomerUsername() {
+        return customerUsername;
     }
 
-    @Override
+    public double getAmount() {
+        return amount;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void approve() {
+        approved = true;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
     public String toString() {
-        return "Request by: " + customer.getName() + ", Amount: ₹" + amount + ", Approved: " + approved;
+        return "CreditRequest from " + customerUsername + ", Amount: " + amount + ", Reason: " + reason + ", Approved: " + approved;
     }
 }

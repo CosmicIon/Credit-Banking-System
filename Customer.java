@@ -1,31 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
+// Customer.java
+import java.util.*;
 
 public class Customer extends User {
-    private boolean hasRequestedCredit = false;
-    private boolean isCreditApproved = false;
     private double balance;
-    private double penaltyAmount = 0.0;
-    private List<Transaction> transactions;
+    private double penalty;
+    private boolean creditApproved;
+    private List<String> transactions;
 
-
-    public Customer(String name, String email, String password) {
-        super(name, email, password);
+    public Customer(String username, String password) {
+        super(username, password);
         this.balance = 0.0;
+        this.penalty = 0.0;
+        this.creditApproved = false;
         this.transactions = new ArrayList<>();
-    }
-
-    public CreditRequest requestCredit(double amount) {
-        hasRequestedCredit = true;
-        return new CreditRequest(this, amount);
-    }
-
-    public void setCreditApproved(boolean approved) {
-        isCreditApproved = approved;
-    }
-
-    public boolean isCreditApproved() {
-        return isCreditApproved;
     }
 
     public double getBalance() {
@@ -34,37 +21,41 @@ public class Customer extends User {
 
     public void deposit(double amount) {
         balance += amount;
-        addTransaction(new Transaction("Deposit", amount, "Deposited to account"));
+        transactions.add("Deposited: " + amount);
     }
 
-    public boolean withdraw(double amount) {
+    public void withdraw(double amount) {
         if (amount <= balance) {
             balance -= amount;
-            addTransaction(new Transaction("Withdraw", amount, "Withdrawn from account"));
-            return true;
+            transactions.add("Withdrawn: " + amount);
+        } else {
+            transactions.add("Failed Withdrawal Attempt: " + amount);
         }
-        return false;
     }
 
-    public void addPenalty(double amount, String reason) {
-        penaltyAmount += amount;
-        addTransaction(new Transaction("Penalty", amount, reason));
+    public void addPenalty(double amount) {
+        penalty += amount;
+        transactions.add("Penalty added: " + amount);
     }
 
-    public double getPenaltyAmount() {
-        return penaltyAmount;
+    public double getPenalty() {
+        return penalty;
     }
 
-    public void addTransaction(Transaction t) {
-        transactions.add(t);
-    }
-
-    public List<Transaction> getTransactionHistory() {
+    public List<String> getTransactions() {
         return transactions;
+    }
+
+    public boolean isCreditApproved() {
+        return creditApproved;
+    }
+
+    public void setCreditApproved(boolean approved) {
+        this.creditApproved = approved;
     }
 
     @Override
     public String toString() {
-        return name + " (" + email + ") - Credit Approved: " + isCreditApproved;
+        return "Customer: " + getUsername() + ", Balance: " + balance + ", Penalty: " + penalty;
     }
 }
