@@ -1,10 +1,6 @@
 package model;
 import java.util.*;
-import model.BankSystem;
-import model.CreditRequest;
 import model.Customer;
-import model.Transaction;
-import model.User;
 
 public class Customer extends User {
     private double balance;

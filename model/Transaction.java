@@ -1,10 +1,7 @@
 package model;
+
 import java.time.LocalDateTime;
-import model.BankSystem;
-import model.CreditRequest;
-import model.Customer;
 import model.Transaction;
-import model.User;
 
 public class Transaction {
     private String type;
