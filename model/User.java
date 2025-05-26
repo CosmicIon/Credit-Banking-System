@@ -1,4 +1,12 @@
+package model;
 // User.java
+
+import model.BankSystem;
+import model.CreditRequest;
+import model.Customer;
+import model.Transaction;
+import model.User;
+
 public abstract class User {
     private String username;
     private String password;

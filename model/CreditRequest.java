@@ -1,4 +1,11 @@
+package model;
 // CreditRequest.java
+
+import model.BankSystem;
+import model.CreditRequest;
+import model.Customer;
+import model.Transaction;
+import model.User;
 public class CreditRequest {
     private String customerUsername;
     private double amount;

@@ -1,6 +1,12 @@
 // ConsoleUI.java
 import java.util.*;
 
+import model.Admin;
+import model.BankSystem;
+import model.CreditRequest;
+import model.Customer;
+import model.Transaction;
+
 public class ConsoleUI {
     private Scanner scanner;
     private BankSystem bankSystem;

@@ -1,5 +1,11 @@
+package model;
 // BankSystem.java
 import java.util.*;
+import model.BankSystem;
+import model.CreditRequest;
+import model.Customer;
+import model.Transaction;
+import model.User;
 
 public class BankSystem {
     private Map<String, Customer> customers;
