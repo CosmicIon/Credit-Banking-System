@@ -10,10 +10,10 @@ public class Admin extends User {
 
     public void viewCustomerTransactions(Customer customer) {
         System.out.println("Transactions for " + customer.getUsername() + ":");
-        for (String t : customer.getTransactions()) {
+        for (Transaction t : customer.getTransactions()) {
             System.out.println(t);
         }
-    }
+}
 
     public void viewCreditRequests(BankSystem bankSystem) {
         for (CreditRequest cr : bankSystem.getCreditRequests()) {

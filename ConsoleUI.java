@@ -167,14 +167,14 @@ public class ConsoleUI {
                     String reason = scanner.nextLine();
                     CreditRequest request = new CreditRequest(customer.getUsername(), amount, reason);
                     bankSystem.addCreditRequest(request);
-                    customer.getTransactions().add("Credit requested: " + amount);
+                    customer.getTransactions().add(new Transaction("Credit Request", amount, reason));
                     System.out.println("Credit request submitted.");
                     break;
                 case 4:
                     System.out.println("Credit Approved: " + customer.isCreditApproved());
                     break;
                 case 5:
-                    for (String t : customer.getTransactions()) {
+                    for (Transaction t : customer.getTransactions()) {
                         System.out.println(t);
                     }
                     break;
