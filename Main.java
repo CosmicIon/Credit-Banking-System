@@ -1,6 +1,3 @@
-// Main.java
-
-
 import model.*;
 import ui.MainFrame;
 

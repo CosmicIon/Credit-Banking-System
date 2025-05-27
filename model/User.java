@@ -1,5 +1,4 @@
 package model;
-// User.java
 
 import model.User;
 

@@ -1,8 +1,6 @@
-// LoginPanel.java
 package ui;
 
 import model.*;
-
 import javax.swing.*;
 import java.awt.*;
 

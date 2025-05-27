@@ -1,6 +1,4 @@
-// ConsoleUI.java
 import java.util.*;
-
 import model.Admin;
 import model.BankSystem;
 import model.CreditRequest;

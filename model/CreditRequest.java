@@ -1,5 +1,4 @@
 package model;
-// CreditRequest.java
 
 import model.CreditRequest;
 public class CreditRequest {

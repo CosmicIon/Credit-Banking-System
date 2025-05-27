@@ -1,8 +1,6 @@
-// MainFrame.java
 package ui;
 
 import model.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,10 +16,7 @@ public class MainFrame extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        // Show LoginPanel first
         showLoginPanel();
-
         setVisible(true);
     }
 
