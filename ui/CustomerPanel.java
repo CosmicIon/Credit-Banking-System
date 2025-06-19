@@ -23,7 +23,7 @@ public class CustomerPanel extends JPanel {
         JButton viewTransactionsBtn = new JButton("View Transactions");
         JButton logoutBtn = new JButton("Logout");
 
-        add(depositBtn);
+        
         add(withdrawBtn);
         add(creditRequestBtn);
         add(viewCreditStatusBtn);
