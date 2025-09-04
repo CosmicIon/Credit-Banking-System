@@ -58,11 +58,11 @@ public class LoginPanel extends JPanel {
         
         // Username field
         JPanel usernamePanel = createFieldPanel("Username", true);
-        usernameField = (JTextField) usernamePanel.getComponent(1);
+        usernameField = (JTextField) usernamePanel.getComponent(2);
         
         // Password field
         JPanel passwordPanel = createFieldPanel("Password", false);
-        passwordField = (JPasswordField) passwordPanel.getComponent(1);
+        passwordField = (JPasswordField) passwordPanel.getComponent(2);
         
         // Buttons panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
