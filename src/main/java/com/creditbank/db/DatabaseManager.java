@@ -12,7 +12,7 @@ import java.util.List;
 public class DatabaseManager {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/credit_bank";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = ""; // Change this to your MySQL password
+    private static final String DB_PASSWORD = "Harsh@8118198";
     
     private Connection connection;
     
