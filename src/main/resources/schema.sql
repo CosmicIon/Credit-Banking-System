@@ -64,25 +64,21 @@ VALUES ('admin', 'admin123', 'ADMIN');
 
 -- Insert some sample customer accounts for testing
 INSERT INTO users (username, password, user_type) VALUES
-    ('john_doe', 'password123', 'CUSTOMER'),
-    ('jane_smith', 'password123', 'CUSTOMER'),
-    ('bob_wilson', 'password123', 'CUSTOMER');
+    ('hashtag_harsh', 'password123', 'CUSTOMER'),
+    ('artist_prakshi', 'password123', 'CUSTOMER');
 
 -- Initialize customer records
 INSERT INTO customers (username, balance, penalty, credit_approved, credit_limit) VALUES
-    ('john_doe', 5000.00, 0.00, FALSE, 0.00),
-    ('jane_smith', 10000.00, 50.00, TRUE, 5000.00),
-    ('bob_wilson', 2500.00, 0.00, FALSE, 0.00);
+    ('hashtag_harsh', 5000.00, 0.00, FALSE, 0.00),
+    ('artist_prakshi', 10000.00, 50.00, TRUE, 5000.00);
 
 -- Insert sample transactions
 INSERT INTO transactions (customer_username, type, amount, balance_after, description) VALUES
-    ('john_doe', 'DEPOSIT', 5000.00, 5000.00, 'Initial deposit'),
-    ('jane_smith', 'DEPOSIT', 10000.00, 10000.00, 'Initial deposit'),
-    ('jane_smith', 'PENALTY', 50.00, 10000.00, 'Late payment penalty'),
-    ('bob_wilson', 'DEPOSIT', 2500.00, 2500.00, 'Initial deposit');
+    ('hashtag_harsh', 'DEPOSIT', 5000.00, 5000.00, 'Initial deposit'),
+    ('artist_prakshi', 'DEPOSIT', 10000.00, 10000.00, 'Initial deposit'),
+    ('artist_prakshi', 'PENALTY', 50.00, 10000.00, 'Late payment penalty');
 
 -- Insert sample credit requests
 INSERT INTO credit_requests (customer_username, amount, reason, approved, status) VALUES
-    ('jane_smith', 5000.00, 'Business expansion loan', TRUE, 'APPROVED'),
-    ('john_doe', 3000.00, 'Personal emergency loan', FALSE, 'PENDING'),
-    ('bob_wilson', 10000.00, 'Home renovation loan', FALSE, 'PENDING');
+    ('artist_prakshi', 5000.00, 'Business expansion loan', TRUE, 'APPROVED'),
+    ('hashtag_harsh', 3000.00, 'Personal emergency loan', FALSE, 'PENDING');

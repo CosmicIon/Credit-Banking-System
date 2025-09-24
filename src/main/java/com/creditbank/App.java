@@ -271,8 +271,8 @@ public class App {
                 "\n" +
                 "Default Login Credentials:\n" +
                 "  Admin:    username = admin,     password = admin123\n" +
-                "  Customer: username = john_doe,  password = password123\n" +
-                "  Customer: username = jane_smith, password = password123\n" +
+                "  Customer: username = hashtag_harsh,  password = password123\n" +
+                "  Customer: username = artist_prakshi, password = password123\n" +
                 "\n" +
                 "Features Available:\n" +
                 "  ✓ Customer Account Management\n" +
